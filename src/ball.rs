@@ -41,13 +41,7 @@ impl Ball {
         self.bounds.x = x - self.bounds.width / 2.0;
         self.bounds.y = y - self.bounds.height / 2.0;
         
-        use rand::{self, Rng};
-        let mut rng = rand::thread_rng();
-
-        // Generate a random velocity towards one player.
-        self.vx = if rng.gen() { BALL_STARTING_SPEED } else { -BALL_STARTING_SPEED };
-        self.vy = rng.gen_range( -BALL_STARTING_SPEED, BALL_STARTING_SPEED );
-        self.start_timer = 1.0;
+        // TODO: Give the ball a random velocity.
     }
 
     /// Updates the position of the ball and checks for collisions.
@@ -74,34 +68,16 @@ impl Ball {
 
     /// Handles collision between the ball and a paddle.
     fn check_paddle_collision(&mut self, paddle: &Paddle) {
-        if paddle.bounds.intersects(self.bounds) {
-            // Snap the edge of the ball to the edge of the paddle.
-            self.bounds.x = if self.vx < 0.0 { paddle.bounds.x + paddle.bounds.width } else { paddle.bounds.x - self.bounds.width };
-            // Reflect the ball the opposite direction.
-            self.vx = -BALL_BOUNCE_SPEEDUP * self.vx;
-            // Adjust the vertical velocity of the ball based on where it hits the paddle.
-            let dy = self.bounds.y - paddle.bounds.y;
-            self.vy = dy * 10.0;
-        }
+        // TODO: Check collision against the given paddle, and reflect the ball if it's colliding.
     }
 
     /// Handles collision between the ball and the top or bottom of the screen.
     fn check_wall_collision(&mut self, params: &UpdateParams) {
-        if self.bounds.y <= 0.0 || self.bounds.y + self.bounds.height >= params.game_height {
-            // Flip vertically.
-            self.vy = -self.vy;
-        }
+        // TODO: Check collision against the top and bottom of the screen, and reflect the ball if it's colliding.
     }
 
     /// Handles collision between the ball and the left or right edge of the screen.
     fn check_goal(&mut self, params: &UpdateParams, left_paddle: &mut Paddle, right_paddle: &mut Paddle) {
-        // Check for goal.
-        if self.bounds.x <= 0.0 {
-            right_paddle.score += 1;
-            self.reset(params.game_width / 2.0, params.game_height / 2.0);
-        } else if self.bounds.x + self.bounds.width >= params.game_width {
-            left_paddle.score += 1;
-            self.reset(params.game_width / 2.0, params.game_height / 2.0);
-        }
+        // TODO: Check collision against the left or right edge, and give the appropriate player a point.
     }
 }

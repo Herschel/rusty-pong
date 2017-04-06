@@ -275,6 +275,8 @@ impl Game {
                     self.pressed_keys.remove(&key);
                 },
 
+                // TODO: Handle mouse/touch events.
+
                 // Other events are unhandled.
                 _ => (),
             }
