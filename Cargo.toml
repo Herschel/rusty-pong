@@ -1,0 +1,8 @@
+[package]
+name = "rusty-pong"
+version = "0.1.0"
+authors = ["Mike Welsh <mwelsh@gmail.com>"]
+
+[dependencies]
+glium = "0.16"
+rand = "0.3"
