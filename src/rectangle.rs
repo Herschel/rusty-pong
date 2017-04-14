@@ -25,15 +25,14 @@ impl Rectangle {
     }
 
     /// Tests if `self` contains the given point.
+    #[allow(dead_code)]
     pub fn contains_point(&self, x: f32, y: f32) -> bool {
         x >= self.x && x <= self.x + self.width && y >= self.y && y <= self.y + self.height
     }
 
     /// Tests if `self` intersects the given rectangle.
     pub fn intersects(&self, other: Rectangle) -> bool {
-        self.contains_point(other.x, other.y) ||
-        self.contains_point(other.x + other.width, other.y) ||
-        self.contains_point(other.x + other.width, other.y + other.height) ||
-        self.contains_point(other.x, other.y + other.height)
+        self.x <= other.x + other.width && self.x + self.width >= other.x &&
+        self.y <= other.y + other.height && self.y + self.height >= other.y
     }
 }
